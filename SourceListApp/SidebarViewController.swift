@@ -162,6 +162,15 @@ extension SidebarViewController: NSOutlineViewDelegate {
 		}
 	}
 	
+	func outlineViewSelectionDidChange(_ notification: Notification) {
+		if let outlineView: NSOutlineView = notification.object as? NSOutlineView {
+			let row: Int = outlineView.selectedRow
+			let item: Location = outlineView.item(atRow: row) as! Location
+			
+			print(item.location)
+		}
+	}
+	
 	func outlineView(_ outlineView: NSOutlineView, isGroupItem item: Any) -> Bool {
 		if item is String {
 			return true

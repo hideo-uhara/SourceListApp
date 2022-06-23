@@ -690,7 +690,6 @@
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
                         <rect key="contentRect" x="136" y="310" width="900" height="400"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <value key="minSize" type="size" width="900" height="400"/>
                         <toolbar key="toolbar" implicitIdentifier="C9F6CE96-136E-4BFE-9170-3ED1AEB9B542" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="n5F-Vi-s5n">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="tOR-fj-v2Y"/>
