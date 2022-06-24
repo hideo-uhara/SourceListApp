@@ -164,10 +164,13 @@ extension SidebarViewController: NSOutlineViewDelegate {
 	
 	func outlineViewSelectionDidChange(_ notification: Notification) {
 		if let outlineView: NSOutlineView = notification.object as? NSOutlineView {
-			let row: Int = outlineView.selectedRow
-			let item: Location = outlineView.item(atRow: row) as! Location
+			let selectionIndexes: IndexSet = outlineView.selectedRowIndexes
 			
-			print(item.location)
+			selectionIndexes.forEach { (index) in
+				let item: Location = outlineView.item(atRow: index) as! Location
+				
+				print(item.location)
+			}
 		}
 	}
 	
