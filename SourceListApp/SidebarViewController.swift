@@ -156,7 +156,11 @@ extension SidebarViewController: NSOutlineViewDelegate {
 		}
 		
 		if item is String {
-			return IndexSet()
+			if outlineView.selectedRowIndexes.isEmpty {
+				return IndexSet()
+			} else {
+				return outlineView.selectedRowIndexes
+			}
 		} else {
 			return proposedSelectionIndexes
 		}
