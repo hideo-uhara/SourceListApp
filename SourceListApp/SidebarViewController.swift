@@ -253,50 +253,29 @@ extension SidebarViewController: NSOutlineViewDelegate {
 			let draggingItem: Any = outlineView.item(atRow: draggingRow)!
 			let draggingParent: String = outlineView.parent(forItem: draggingItem) as! String
 			let draggingIndex: Int = outlineView.childIndex(forItem: draggingItem)
-			
-			if item == draggingParent {
-				
-				// 同じ親への行の移動
-				var index: Int = index
-				
+			var index: Int = index
+
+			if item == draggingParent { // 同じ親への行の移動
 				if draggingIndex < index {
 					index -= 1
 				}
-				
-				let movedItem: Location = self.sidebarItems[draggingParent]![draggingIndex]
-				
-				self.sidebarItems[draggingParent]!.remove(at: draggingIndex)
-				self.sidebarItems[item]!.insert(movedItem, at: index)
-				
-				outlineView.beginUpdates()
-				if self.draggingDestinationFeedbackStyleRegular {
-					outlineView.moveItem(at: draggingIndex, inParent: draggingParent, to: index, inParent: item)
-				} else {
-					outlineView.removeItems(at: IndexSet(integer: draggingIndex), inParent: draggingParent)
-					outlineView.insertItems(at: IndexSet(integer: index), inParent: item)
-				}
-				outlineView.endUpdates()
-				
-				return true
-			} else {
-				
-				// 違う親への行の移動
-				let movedItem: Location = self.sidebarItems[draggingParent]![draggingIndex]
-				
-				self.sidebarItems[draggingParent]!.remove(at: draggingIndex)
-				self.sidebarItems[item]!.insert(movedItem, at: index)
-				
-				outlineView.beginUpdates()
-				if self.draggingDestinationFeedbackStyleRegular {
-					outlineView.moveItem(at: draggingIndex, inParent: draggingParent, to: index, inParent: item)
-				} else {
-					outlineView.removeItems(at: IndexSet(integer: draggingIndex), inParent: draggingParent)
-					outlineView.insertItems(at: IndexSet(integer: index), inParent: item)
-				}
-				outlineView.endUpdates()
-				
-				return true
 			}
+			
+			let movedItem: Location = self.sidebarItems[draggingParent]![draggingIndex]
+			
+			self.sidebarItems[draggingParent]!.remove(at: draggingIndex)
+			self.sidebarItems[item]!.insert(movedItem, at: index)
+			
+			outlineView.beginUpdates()
+			if self.draggingDestinationFeedbackStyleRegular {
+				outlineView.moveItem(at: draggingIndex, inParent: draggingParent, to: index, inParent: item)
+			} else {
+				outlineView.removeItems(at: IndexSet(integer: draggingIndex), inParent: draggingParent)
+				outlineView.insertItems(at: IndexSet(integer: index), inParent: item)
+			}
+			outlineView.endUpdates()
+			
+			return true
 		}
 		
 		return false
