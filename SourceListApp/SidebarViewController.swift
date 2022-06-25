@@ -56,6 +56,7 @@ class SidebarViewController: NSViewController {
 	]
 	
 	var draggingDestinationFeedbackStyleRegular: Bool = true
+	var disableOutlineViewSelectionDidChange: Bool = false
 	
 	@IBOutlet var outlineView: NSOutlineView!
 	
@@ -167,6 +168,10 @@ extension SidebarViewController: NSOutlineViewDelegate {
 	}
 	
 	func outlineViewSelectionDidChange(_ notification: Notification) {
+		if self.disableOutlineViewSelectionDidChange {
+			return
+		}
+		
 		if let outlineView: NSOutlineView = notification.object as? NSOutlineView {
 			let selectionIndexes: IndexSet = outlineView.selectedRowIndexes
 			
@@ -270,14 +275,32 @@ extension SidebarViewController: NSOutlineViewDelegate {
 			self.sidebarItems[draggingParent]!.remove(at: draggingIndex)
 			self.sidebarItems[item]!.insert(movedItem, at: index)
 			
-			outlineView.beginUpdates()
 			if self.draggingDestinationFeedbackStyleRegular {
+				outlineView.beginUpdates()
 				outlineView.moveItem(at: draggingIndex, inParent: draggingParent, to: index, inParent: item)
+				outlineView.endUpdates()
 			} else {
+				let draggingRowSelected: Bool = outlineView.selectedRowIndexes.contains(draggingRow)
+				
+				if draggingRowSelected {
+					self.disableOutlineViewSelectionDidChange = true
+				}
+				
+				outlineView.beginUpdates()
 				outlineView.removeItems(at: IndexSet(integer: draggingIndex), inParent: draggingParent)
 				outlineView.insertItems(at: IndexSet(integer: index), inParent: item)
+				outlineView.endUpdates()
+				
+				if draggingRowSelected {
+					let row: Int = outlineView.row(forItem: draggingItem)
+					
+					if row != -1 {
+						outlineView.selectRowIndexes(IndexSet(integer: row), byExtendingSelection: false)
+					}
+					
+					self.disableOutlineViewSelectionDidChange = false
+				}
 			}
-			outlineView.endUpdates()
 			
 			return true
 		}
