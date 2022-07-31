@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C1F431B2896121B002972E7 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C1F431A2896121B002972E7 /* AppKit.framework */; };
 		7CD5C7BF2808CA7B00494E0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD5C7BE2808CA7B00494E0A /* AppDelegate.swift */; };
 		7CD5C7C12808CA7B00494E0A /* SidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD5C7C02808CA7B00494E0A /* SidebarViewController.swift */; };
 		7CD5C7C32808CA7C00494E0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CD5C7C22808CA7C00494E0A /* Assets.xcassets */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7C1F431A2896121B002972E7 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		7CD5C7BB2808CA7B00494E0A /* SourceListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SourceListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD5C7BE2808CA7B00494E0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CD5C7C02808CA7B00494E0A /* SidebarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarViewController.swift; sourceTree = "<group>"; };
@@ -29,17 +31,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C1F431B2896121B002972E7 /* AppKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7C1F43192896121B002972E7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7C1F431A2896121B002972E7 /* AppKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7CD5C7B22808CA7A00494E0A = {
 			isa = PBXGroup;
 			children = (
 				7CD5C7BD2808CA7B00494E0A /* SourceListApp */,
 				7CD5C7BC2808CA7B00494E0A /* Products */,
+				7C1F43192896121B002972E7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
