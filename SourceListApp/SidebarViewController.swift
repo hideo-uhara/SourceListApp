@@ -232,7 +232,7 @@ extension SidebarViewController: NSOutlineViewDelegate {
 			if item == nil { // rootへの移動
 				return []
 			}
-			if index == NSOutlineViewDropOnItemIndex { // アイテム上への移動
+			if index == NSOutlineViewDropOnItemIndex { // アイテム上への移動(gapの場合この判定は無効、アイテム上に移動できない)
 				return []
 			}
 			guard let draggingRow: Int = Int(pasteboard.string(forType: self.sidebarRowPasteboardType)!) else {
@@ -280,6 +280,10 @@ extension SidebarViewController: NSOutlineViewDelegate {
 				outlineView.moveItem(at: draggingIndex, inParent: draggingParent, to: index, inParent: item)
 				outlineView.endUpdates()
 			} else {
+				if item == draggingParent && index == draggingIndex { // 移動がない場合
+					return true
+				}
+				
 				let draggingRowSelected: Bool = outlineView.selectedRowIndexes.contains(draggingRow)
 				
 				if draggingRowSelected {
