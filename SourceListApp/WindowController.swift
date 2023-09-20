@@ -28,5 +28,20 @@ extension WindowController: NSToolbarDelegate {
 		
 		return items
 	}
+	
+	func toolbarWillAddItem(_ notification: Notification) {
+		guard let userInfo = notification.userInfo else {
+			return
+		}
+		
+		if let toolbarItem: NSToolbarItem = userInfo["item"] as? NSToolbarItem {
+			if toolbarItem.itemIdentifier == NSToolbarItem.Identifier.toggleSidebar {
+				if #available(macOS 11.0, *) {
+					toolbarItem.isNavigational = true
+				}
+			}
+		}
+	}
+	
 }
 
