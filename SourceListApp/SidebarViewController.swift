@@ -119,91 +119,6 @@ extension SidebarViewController: NSOutlineViewDataSource {
 		}
 	}
 	
-	func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
-		
-		if item is String {
-			let cell: NSTableCellView = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("TableCellView"), owner: self) as! NSTableCellView
-			let textField: NSTextField = cell.viewWithTag(1) as! NSTextField
-			
-			textField.stringValue = item as! String
-			
-			return cell
-			
-		} else {
-			if let location: Location = item as? Location {
-				let cell: NSTableCellView = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("TableCellView"), owner: self) as! NSTableCellView
-				let textField: NSTextField = cell.viewWithTag(1) as! NSTextField
-			
-				textField.stringValue = location.location
-			
-				return cell
-
-			} else {
-				return nil
-			}
-		}
-	}
-	
-}
-
-extension SidebarViewController: NSOutlineViewDelegate {
-	
-	func outlineView(_ outlineView: NSOutlineView, selectionIndexesForProposedSelection proposedSelectionIndexes: IndexSet) -> IndexSet {
-		
-		var item: Any? = nil
-		
-		proposedSelectionIndexes.forEach { (index) in
-			item = outlineView.item(atRow: index)
-		}
-		
-		if item is String {
-			if outlineView.selectedRowIndexes.isEmpty {
-				return IndexSet()
-			} else {
-				return outlineView.selectedRowIndexes
-			}
-		} else {
-			return proposedSelectionIndexes
-		}
-	}
-	
-	func outlineViewSelectionDidChange(_ notification: Notification) {
-		if self.disableOutlineViewSelectionDidChange {
-			return
-		}
-		
-		if let outlineView: NSOutlineView = notification.object as? NSOutlineView {
-			let selectionIndexes: IndexSet = outlineView.selectedRowIndexes
-			
-			selectionIndexes.forEach { (index) in
-				let item: Location = outlineView.item(atRow: index) as! Location
-				
-				print(item.location)
-			}
-		}
-	}
-	
-	func outlineView(_ outlineView: NSOutlineView, isGroupItem item: Any) -> Bool {
-		if item is String {
-			return true
-		} else {
-			return false
-		}
-	}
-	
-	func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
-		let identifier: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("TableRowView")
-		
-		var tableRowView: NSTableRowView? = outlineView.makeView(withIdentifier: identifier, owner: self) as? NSTableRowView
-		
-		if tableRowView == nil {
-			tableRowView = EmphasizedTableRowView(frame: NSZeroRect)
-			tableRowView?.identifier = identifier
-		}
-		
-		return tableRowView
-	}
-	
 	func outlineView(_ outlineView: NSOutlineView, draggingSession session: NSDraggingSession, willBeginAt screenPoint: NSPoint, forItems draggedItems: [Any]) {
 		if self.draggingDestinationFeedbackStyleRegular {
 			outlineView.draggingDestinationFeedbackStyle = .regular
@@ -310,6 +225,91 @@ extension SidebarViewController: NSOutlineViewDelegate {
 		}
 		
 		return false
+	}
+
+}
+
+extension SidebarViewController: NSOutlineViewDelegate {
+	
+	func outlineView(_ outlineView: NSOutlineView, selectionIndexesForProposedSelection proposedSelectionIndexes: IndexSet) -> IndexSet {
+		
+		var item: Any? = nil
+		
+		proposedSelectionIndexes.forEach { (index) in
+			item = outlineView.item(atRow: index)
+		}
+		
+		if item is String {
+			if outlineView.selectedRowIndexes.isEmpty {
+				return IndexSet()
+			} else {
+				return outlineView.selectedRowIndexes
+			}
+		} else {
+			return proposedSelectionIndexes
+		}
+	}
+	
+	func outlineViewSelectionDidChange(_ notification: Notification) {
+		if self.disableOutlineViewSelectionDidChange {
+			return
+		}
+		
+		if let outlineView: NSOutlineView = notification.object as? NSOutlineView {
+			let selectionIndexes: IndexSet = outlineView.selectedRowIndexes
+			
+			selectionIndexes.forEach { (index) in
+				let item: Location = outlineView.item(atRow: index) as! Location
+				
+				print(item.location)
+			}
+		}
+	}
+	
+	func outlineView(_ outlineView: NSOutlineView, isGroupItem item: Any) -> Bool {
+		if item is String {
+			return true
+		} else {
+			return false
+		}
+	}
+	
+	func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
+		
+		if item is String {
+			let cell: NSTableCellView = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("TableCellView"), owner: self) as! NSTableCellView
+			let textField: NSTextField = cell.viewWithTag(1) as! NSTextField
+			
+			textField.stringValue = item as! String
+			
+			return cell
+			
+		} else {
+			if let location: Location = item as? Location {
+				let cell: NSTableCellView = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("TableCellView"), owner: self) as! NSTableCellView
+				let textField: NSTextField = cell.viewWithTag(1) as! NSTextField
+			
+				textField.stringValue = location.location
+			
+				return cell
+
+			} else {
+				return nil
+			}
+		}
+	}
+	
+	func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
+		let identifier: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("TableRowView")
+		
+		var tableRowView: NSTableRowView? = outlineView.makeView(withIdentifier: identifier, owner: self) as? NSTableRowView
+		
+		if tableRowView == nil {
+			tableRowView = EmphasizedTableRowView(frame: NSZeroRect)
+			tableRowView?.identifier = identifier
+		}
+		
+		return tableRowView
 	}
 	
 }
